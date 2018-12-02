@@ -62,14 +62,14 @@ docker {
 
 distDocker {
 	dryRun = true
-	exposePort(8081)
+	exposePort(8082)
 	setEnvironment('JAVA_OPTS', "-Xmx1024m -Xms1024m -Djava.security.egd=file:/dev/./urandom -Duser.timezone=America/Sao_Paulo")
 }
 
 task distDockerLocal(type: Docker) {
 	dryRun = false
 	addFile ("${project.buildDir}/${project.libsDirName}/${rootProject.name}.jar", "/")
-	exposePort(8081)
+	exposePort(8082)
 	setEnvironment('JAVA_OPTS', "-Xmx1024m -Xms1024m -Djava.security.egd=file:/dev/./urandom -Duser.timezone=America/Sao_Paulo")
 	entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/'+"${rootProject.name}"+'.jar'])
 }

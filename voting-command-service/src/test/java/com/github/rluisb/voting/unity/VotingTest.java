@@ -1,7 +1,6 @@
 package com.github.rluisb.voting.unity;
 
 import com.github.rluisb.voting.aggregate.VotingAggregate;
-import com.github.rluisb.voting.api.dto.VoteDto;
 import com.github.rluisb.voting.command.AddVotingCommand;
 import com.github.rluisb.voting.event.VotingAddedEvent;
 import com.github.rluisb.voting.model.Vote;
@@ -43,6 +42,7 @@ public class VotingTest {
         vote.setName("Voter 1");
         vote.setVote(true);
         vote.setVoterId(UUID.randomUUID().toString());
+        vote.setVotingSessionId(UUID.randomUUID().toString());
         return vote;
     }
 }

@@ -20,7 +20,7 @@ public class VotingEventProcessor {
 
     @EventHandler
     public void on(VotingAddedEvent votingAddedEvent) {
-        Vote vote = voteRepository.save(new Vote(votingAddedEvent.getId(), votingAddedEvent.getVote().getVoterId(), votingAddedEvent.getVote().getName(), votingAddedEvent.getVote().getVote()));
+        Vote vote = voteRepository.save(new Vote(votingAddedEvent.getId(), votingAddedEvent.getVote().getVoterId(), votingAddedEvent.getVote().getName(), votingAddedEvent.getVote().getVote(), votingAddedEvent.getVote().getVotingSessionId()));
         LOGGER.info(String.format("A bank account was added! %s", vote));
     }
 

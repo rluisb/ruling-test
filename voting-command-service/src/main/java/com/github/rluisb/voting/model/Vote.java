@@ -5,6 +5,7 @@ public class Vote {
     private String voterId;
     private String name;
     private Boolean vote;
+    private String votingSessionId;
 
     public Vote() {
     }
@@ -33,12 +34,21 @@ public class Vote {
         this.vote = vote;
     }
 
+    public String getVotingSessionId() {
+        return votingSessionId;
+    }
+
+    public void setVotingSessionId(String votingSessionId) {
+        this.votingSessionId = votingSessionId;
+    }
+
     @Override
     public String toString() {
         return "Vote{" +
                 "voterId='" + voterId + '\'' +
                 ", name='" + name + '\'' +
                 ", vote=" + vote +
+                ", votingSessionId='" + votingSessionId + '\'' +
                 '}';
     }
 }

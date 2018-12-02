@@ -11,15 +11,17 @@ public class Vote {
     private String voterId;
     private String name;
     private Boolean vote;
+    private String votingSessionId;
 
     public Vote() {
     }
 
-    public Vote(String id, String voterId, String name, Boolean vote) {
+    public Vote(String id, String voterId, String name, Boolean vote, String votingSessionId) {
         this.id = id;
         this.voterId = voterId;
         this.name = name;
         this.vote = vote;
+        this.votingSessionId = votingSessionId;
     }
 
     public String getVoterId() {
@@ -46,12 +48,22 @@ public class Vote {
         this.vote = vote;
     }
 
+    public String getVotingSessionId() {
+        return votingSessionId;
+    }
+
+    public void setVotingSessionId(String votingSessionId) {
+        this.votingSessionId = votingSessionId;
+    }
+
     @Override
     public String toString() {
         return "Vote{" +
-                "voterId='" + voterId + '\'' +
+                "id='" + id + '\'' +
+                ", voterId='" + voterId + '\'' +
                 ", name='" + name + '\'' +
                 ", vote=" + vote +
+                ", votingSessionId='" + votingSessionId + '\'' +
                 '}';
     }
 }

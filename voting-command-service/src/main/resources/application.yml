@@ -4,11 +4,11 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/ruling-voting-db
+    url: jdbc:postgresql://localhost:5432/ruling-voting-db
     username: root
     password: root
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
     show-sql: true
     generate-ddl: true
     hibernate:

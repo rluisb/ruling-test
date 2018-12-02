@@ -1,0 +1,10 @@
+server:
+  contextPath: /api/ruling
+  port: 8081
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: ruling

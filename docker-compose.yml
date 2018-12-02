@@ -1,0 +1,20 @@
+version: '3.4'
+volumes:
+  data:
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  mysql:
+     image: mysql:latest
+     ports:
+       - "3306:3306"
+     volumes:
+       - data:/var/lib/mysql
+     restart: always
+     environment:
+       - MYSQL_ROOT_PASSWORD=root
+       - MYSQL_DATABASE=ruling-voting-db

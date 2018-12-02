@@ -23,19 +23,11 @@ public class VotingApiTest {
 
     @LocalServerPort
     private Integer port;
-    private WireMockServer wireMockServer = new WireMockServer(8097);
-
 
     @Before
     public void setUp() throws Exception {
         RestAssured.port = port;
         RestAssured.baseURI = String.format("http://localhost:%s/api/voting/v1", port);
-        wireMockServer.start();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        wireMockServer.stop();
     }
 
     @Test

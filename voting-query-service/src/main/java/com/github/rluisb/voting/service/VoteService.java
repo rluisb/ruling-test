@@ -21,7 +21,7 @@ public class VoteService {
         return voteRepository.findAllByVotingSessionId(votingSessionId);
     }
 
-    public Vote getVoteByVotingSessionIdAndVoterId(String votingSessionId, String voterId) {
+    public List<Vote> getVoteByVotingSessionIdAndVoterId(String votingSessionId, String voterId) {
         return voteRepository.findByVotingSessionIdAndVoterId(votingSessionId, voterId);
     }
 

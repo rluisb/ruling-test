@@ -43,50 +43,29 @@ public class VotingApi implements BaseVersion {
             @ApiResponse(code = NOT_FOUND, message = NOT_FOUND_MESSAGE, response = QueryResponse.class),
             @ApiResponse(code = INTERNAL_SERVER_ERROR, message = INTERNAL_SERVER_ERROR_MESSAGE)
     })
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getAll(@RequestParam String votingSessionId, @RequestParam String voterId) {
         LOGGER.info("Beggining votes search...");
-        List<Vote> votes = voteService.getAllVotes();
+        List<Vote> votes = checkQueryParams(votingSessionId, voterId);
         if (votes.isEmpty()) {
             LOGGER.info("No votes were found.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new QueryResponse(1, "No events were found", null));
         }
-        LOGGER.info(String.format("Votes found: %s", votes));
-        return ok().body(votes);
-    }
-
-    @GetMapping("/votes")
-    @ApiOperation(value = "This endpoint is destinated to view votes")
-    @ApiResponses(value = {
-            @ApiResponse(code = OK, message = OK_MESSAGE, response = Vote.class),
-            @ApiResponse(code = NOT_FOUND, message = NOT_FOUND_MESSAGE, response = QueryResponse.class),
-            @ApiResponse(code = INTERNAL_SERVER_ERROR, message = INTERNAL_SERVER_ERROR_MESSAGE)
-    })
-    public ResponseEntity<?> getByVotingSessionIdAndVoterId(@RequestParam String votingSessionId, @RequestParam String voterId) {
-        LOGGER.info("Beggining vote search...");
-        Vote vote = voteService.getVoteByVotingSessionIdAndVoterId(votingSessionId, voterId);
-        if (Objects.isNull(vote)) {
-            LOGGER.info("No votes were found.");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new QueryResponse(1, "No events were found", null));
+        if (votes.size() > 1) {
+            LOGGER.info(String.format("Votes found: %s", votes));
+            return ok().body(votes);
         }
+        Vote vote = votes.stream().findFirst().get();
         LOGGER.info(String.format("Vote found: %s", vote));
         return ok().body(vote);
     }
 
-    @GetMapping("/votes")
-    @ApiOperation(value = "This endpoint is destinated to view votes")
-    @ApiResponses(value = {
-            @ApiResponse(code = OK, message = OK_MESSAGE, response = VoteListResponse.class),
-            @ApiResponse(code = NOT_FOUND, message = NOT_FOUND_MESSAGE, response = QueryResponse.class),
-            @ApiResponse(code = INTERNAL_SERVER_ERROR, message = INTERNAL_SERVER_ERROR_MESSAGE)
-    })
-    public ResponseEntity<?> getAllByVotingSessionId(@RequestParam String votingSessionId) {
-        LOGGER.info("Beggining vote search...");
-        List<Vote> votes = voteService.getAllVotesByVotingSessionId(votingSessionId);
-        if (votes.isEmpty()) {
-            LOGGER.info("No votes were found.");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new QueryResponse(1, "No events were found", null));
+    private List<Vote> checkQueryParams(String votingSessionId, String voterId) {
+        if (votingSessionId.isEmpty() && voterId.isEmpty()) {
+            return voteService.getAllVotes();
         }
-        LOGGER.info(String.format("Votes found: %s", votes));
-        return ok().body(votes);
+        if (voterId.isEmpty()) {
+            return voteService.getAllVotesByVotingSessionId(votingSessionId);
+        }
+        return voteService.getVoteByVotingSessionIdAndVoterId(votingSessionId, voterId);
     }
 }

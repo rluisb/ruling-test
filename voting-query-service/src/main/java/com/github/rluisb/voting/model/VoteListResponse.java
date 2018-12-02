@@ -13,4 +13,11 @@ public class VoteListResponse {
     public void setVotes(List<Vote> votes) {
         this.votes = votes;
     }
+
+    @Override
+    public String toString() {
+        return "VoteListResponse{" +
+                "votes=" + votes +
+                '}';
+    }
 }

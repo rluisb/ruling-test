@@ -10,5 +10,5 @@ import java.util.List;
 public interface VoteRepository extends CrudRepository<Vote, String> {
     List<Vote> findAll();
     List<Vote> findAllByVotingSessionId(String votingSessionId);
-    Vote findByVotingSessionIdAndVoterId(String votingSessionId, String voterId);
+    List<Vote> findByVotingSessionIdAndVoterId(String votingSessionId, String voterId);
 }
